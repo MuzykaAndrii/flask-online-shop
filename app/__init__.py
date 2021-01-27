@@ -26,7 +26,7 @@ from app.posts.blueprint import posts
 app.register_blueprint(posts, url_prefix='/blog')
 
 from app.products.blueprint import products
-app.register_blueprint(products, url_prefix='/products')
+app.register_blueprint(products, url_prefix='/shop')
 
 from app.auth.blueprint import auth
 app.register_blueprint(auth, url_prefix='/auth')

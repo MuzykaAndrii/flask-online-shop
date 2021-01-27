@@ -8,11 +8,13 @@
 {%endfor %}
 
 <h1>{{ product.title }}</h1>
-<p>{{ product.content | markup }}</p>
+<p>{{ product.description}}</p>
+<p>Price: {{ product.price}}$</p>
+<p>{{ product.quantity}} items left.</p>
 <b>Created by: </b> {{ creator }}
-<p>From: {{ product.date_producted }}</p>
+<p>From: {{ product.date_posted }}</p>
 
-{% if product.user_id == current_user.id %}
+{% if product.seller_id == current_user.id %}
 
 <a href="{{ url_for('products.update_product', product_id=product.id) }}" class="btn btn-primary">Update product</a>
 <a href="{{ url_for('products.delete_product', product_id=product.id) }}" class="btn btn-danger">Delete product</a>

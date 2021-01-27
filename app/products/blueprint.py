@@ -24,10 +24,12 @@ def new_product():
 
     if form.validate_on_submit():
         title = form.title.data
-        content = form.content.data
+        description = form.description.data
         creator_id = current_user.id
+        price = form.price.data
+        quantity = form.quantity.data
 
-        product = Product(title, content, creator_id)
+        product = Product(title, description, creator_id, price, quantity)
         product.save()
 
         flash('Product created successfully', 'success')
@@ -46,7 +48,7 @@ def get_products():
 
     if search_query:
         # paginate according to search query
-        products = Product.query.filter(Product.title.contains(search_query) | Product.content.contains(search_query)).paginate(page=page, per_page=POSTS_PER_PAGE)
+        products = Product.query.filter(Product.title.contains(search_query) | Product.description.contains(search_query)).paginate(page=page, per_page=POSTS_PER_PAGE)
     else:
         #paginate simply
         products = Product.query.paginate(page=page, per_page=POSTS_PER_PAGE)
@@ -65,8 +67,10 @@ def update_product(product_id):
 
     if form.validate_on_submit():
         product.title = form.title.data
-        product.content = form.content.data
-        product.date_producted = dt.now()
+        product.description = form.description.data
+        product.price = form.price.data
+        product.quantity = form.quantity.data
+        product.date_posted = dt.now()
         product.save()
 
         flash('Product successfully updated', 'success')
@@ -74,7 +78,9 @@ def update_product(product_id):
     
     elif request.method == 'GET':
         form.title.data = product.title
-        form.content.data = product.content
+        form.description.data = product.description
+        form.price.data = product.price
+        form.quantity.data = product.quantity
     
     return render_template('products/update_product.html', title='Edit product', form=form, product_id=product.id)
 
