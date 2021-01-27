@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, DecimalField, IntegerField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp, NumberRange
 from app.models import User
 from flask_login import current_user
 from flask_wtf.file import FileField, FileAllowed
@@ -83,6 +83,6 @@ class CreatePostForm(FlaskForm):
 class CreateProductForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=4, max=50, message='Name of product is too short/big')])
     description = StringField('Description', validators=[DataRequired(), Length(max=10000, message='Text is too big')])
-    price = FloatField('Price', validators=[DataRequired(), NumberRange(min=0.01, max=999999, message='Price is could be bigger than zero')])
+    price = DecimalField('Price', validators=[DataRequired(), NumberRange(min=0.01, max=999999, message='Price is could be bigger than zero')])
     quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=0, message='Quantity is could be bigger than zero')])
     submit = SubmitField('Submit')
