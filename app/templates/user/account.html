@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="user_acc">
+    <div class="user-acc-wrapper">
+        <img src="{{ image_file }}" alt="" class="user-img">
+    </div>
+    <div class="user_acc-inf">
+        <h1>Hi, {{ current_user.username }}</h1>
+        <h4 class="about">{{ current_user.about_me }}</h4>
+        <p class="last_seen">Last seen: {{ current_user.last_seen }}</p>
+    </div>
+</div>
+
+
+{% from "_render_field.html" import render_field %}
+
+{% for cat, msg in get_flashed_messages(True) %}
+<ul class="list-group">
+    <li class="list-group-item list-group-item-{{cat}}">{{msg}}</li>
+</ul>
+{%endfor %}
+
+
+<div class="forms">
+    <form class="update-form" method="POST" action="{{url_for('account')}}" enctype="multipart/form-data">
+
+        {{ form.csrf_token }}
+
+        {{ render_field(form.username) }}
+
+        {{ render_field(form.email) }}
+
+        {{ render_field(form.about_me) }}
+
+        {{ render_field(form.picture) }}
+
+        {{render_field(form.submit)}}
+
+    </form>
+
+    <form class="update-form" method="POST" action="{{url_for('account')}}">
+
+        {{ pass_form.csrf_token }}
+
+        {{ render_field(pass_form.old_password) }}
+
+        {{ render_field(pass_form.new_password) }}
+
+        {{ render_field(pass_form.confirm_password) }}
+
+        {{ render_field(pass_form.submit) }}
+
+
+    </form>
+
+</div>
+
+{% endblock %}
