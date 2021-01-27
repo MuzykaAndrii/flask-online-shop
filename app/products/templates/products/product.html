@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for cat, msg in get_flashed_messages(True) %}
+<ul class="list-group">
+    <li class="list-group-item list-group-item-{{cat}}">{{msg}}</li>
+</ul>
+{%endfor %}
+
+<h1>{{ product.title }}</h1>
+<p>{{ product.content | markup }}</p>
+<b>Created by: </b> {{ creator }}
+<p>From: {{ product.date_producted }}</p>
+
+{% if product.user_id == current_user.id %}
+
+<a href="{{ url_for('products.update_product', product_id=product.id) }}" class="btn btn-primary">Update product</a>
+<a href="{{ url_for('products.delete_product', product_id=product.id) }}" class="btn btn-danger">Delete product</a>
+
+{% endif %}
+
+{% endblock %}

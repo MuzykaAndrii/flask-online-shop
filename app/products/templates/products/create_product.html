@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for cat, msg in get_flashed_messages(True) %}
+<ul class="list-group">
+    <li class="list-group-item list-group-item-{{cat}}">{{msg}}</li>
+</ul>
+{%endfor %}
+
+{% from "_render_field.html" import render_field %}
+
+<h1>Create new product</h1>
+
+<form class="product-form" method="POST" action="{{ url_for('products.new_product') }}">
+
+    {{ form.csrf_token }}
+
+    {{render_field(form.title)}}
+
+    {{render_field(form.description)}}
+
+    {{render_field(form.price)}}
+
+    {{render_field(form.quantity)}}
+
+    {{render_field(form.submit)}}
+
+</form>
+
+
+{% endblock %}

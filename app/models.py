@@ -65,6 +65,33 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.title}', '{self.content}', '{self.user_id}', '{self.date_posted}')"
 
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=dt.utcnow)
+    description = db.Column(db.Text, nullable=False)
+    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    quantity = db.Column(db.Integer, default=0)
+
+    def __init__(self, title, content, user_id, price, quantity):
+        self.title = title
+        self.description = description
+        self.seller_id = user_id
+        self.price = price
+        self.quantity = quantity
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+    
+    def __repr__(self):
+        return f"Post('{self.title}', '{self.content}', '{self.seller_id}', '{self.date_posted}')"
+
 class PostSchema(ma.Schema):
     class Meta:
         fields = ('id', 'title', 'date_posted', 'content', 'user_id')

@@ -79,3 +79,10 @@ class CreatePostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=4, max=50, message='Name of post is too short/big')])
     content = CKEditorField('Post text', validators=[DataRequired(), Length(max=10000, message='Text is too big')])
     submit = SubmitField('Submit')
+
+class CreateProductForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired(), Length(min=4, max=50, message='Name of product is too short/big')])
+    description = StringField('Description', validators=[DataRequired(), Length(max=10000, message='Text is too big')])
+    price = FloatField('Price', validators=[DataRequired(), NumberRange(min=0.01, max=999999, message='Price is could be bigger than zero')])
+    quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=0, message='Quantity is could be bigger than zero')])
+    submit = SubmitField('Submit')
