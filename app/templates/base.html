@@ -18,13 +18,13 @@
     <div class="container">
       <ul class="nav navbar-nav">
         <li><a href="{{url_for('index')}}"> Home</a></li>
-        <li><a href="{{url_for('posts.get_posts')}}">Products</a></li>
+        <li><a href="{{url_for('products.get_products')}}">Products</a></li>
 
         {% if current_user.is_anonymous %}
         <li><a href="{{url_for('auth.login')}}"> Login</a></li>
         <li><a href="{{url_for('auth.register')}}"> Register</a></li>
         {% else %}
-        <li><a href="{{url_for('posts.new_post')}}">Create product</a></li>
+        <li><a href="{{url_for('products.new_product')}}">Create product</a></li>
         <li><a href="{{url_for('account')}}">Account</a></li>
         <li class="logout"><a href="{{url_for('auth.logout')}}"> Logout</a></li>
         {% if current_user.is_admin() %}
