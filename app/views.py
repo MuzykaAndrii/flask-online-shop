@@ -43,7 +43,7 @@ def save_picture(form_picture):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', name = 'Software engeneering', title = 'PNU')
+    return render_template('index.html')
 
 
 ###################### ACCOUNT SETTINGS ##########################
