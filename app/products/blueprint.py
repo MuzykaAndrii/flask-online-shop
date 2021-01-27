@@ -14,6 +14,8 @@ def index():
 def product(product_id):
     product = Product.query.get_or_404(product_id)
     creator = User.query.get(product.seller_id).username
+    product.views = int(product.views) + 1
+    product.save()
     return render_template('products/product.html', title=product.title, product=product, creator=creator)
 
 ####### CREATE POST

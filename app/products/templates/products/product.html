@@ -13,6 +13,7 @@
 <p>{{ product.quantity}} items left.</p>
 <b>Created by: </b> {{ creator }}
 <p>From: {{ product.date_posted }}</p>
+<p>{{ product.views }} views</p>
 
 {% if product.seller_id == current_user.id %}
 

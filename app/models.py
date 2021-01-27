@@ -73,6 +73,7 @@ class Product(db.Model):
     seller_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     price = db.Column(db.Float, nullable=False)
     quantity = db.Column(db.Integer, default=0)
+    views = db.Column(db.Integer, default=0)
 
     def __init__(self, title, description, user_id, price, quantity):
         self.title = title
