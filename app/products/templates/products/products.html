@@ -20,10 +20,15 @@
 
 {% block content %}
 
+{% if desc %}
+  <h1>{{ desc }}</h1>
+{% endif %}
+
 {% for product in products.items %}
-<div class="product">
-  <h2><a href="{{ url_for('products.product', product_id=product.id) }}">{{product.title}}</a></h2>
-  <p>{{ product.content | truncate(100) | markup }}</p>
+<div class="post">
+  <h2><a href="{{ url_for('products.product', product_id=product.id) }}">{{product.title}}</a> {{product.price}}$ </h2>
+  <p>{{ product.description | truncate(100)}}</p>
+  <b>{{ product.views}} people saw this.</b>
 </div>
 {% endfor %}
 
