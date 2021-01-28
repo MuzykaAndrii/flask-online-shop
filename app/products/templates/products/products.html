@@ -23,15 +23,21 @@
 {% if desc %}
   <h1>{{ desc }}</h1>
 {% endif %}
-
+<div class="post-father">
 {% for product in products.items %}
 <div class="post">
-  <h2><a href="{{ url_for('products.product', product_id=product.id) }}">{{product.title}}</a> {{product.price}}$ </h2>
-  <p>{{ product.description | truncate(100)}}</p>
-  <b>{{ product.views}} people saw this.</b>
+  <div class="post-image ">
+    <img src="/static/products_pics/{{product.pictures[0]}}" alt="">
+  </div>
+  <div class="post-inf">
+    <h2><a href="{{ url_for('products.product', product_id=product.id) }}">{{product.title}}</a></h2>
+    <p>{{product.price}}$</p>
+    <p>{{ product.description | truncate(100)}}</p>
+    <b>{{ product.views}} people saw this.</b>
+  </div>
 </div>
 {% endfor %}
-
+</div>
 <!-- Pagination Links-->
 <div class="text-right">
   <a href="{{ url_for('products.get_products', page=products.prev_num) }}"

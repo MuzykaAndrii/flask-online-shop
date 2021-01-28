@@ -18,7 +18,7 @@ def update_last_seen():
 @app.route('/')
 @app.route('/index')
 def index():
-    products = db.session.query(Product).order_by(Product.views.desc()).limit(4)
+    products = db.session.query(Product).order_by(Product.views.desc()).limit(6)
     return render_template('index.html', products=products)
 
 

@@ -55,15 +55,32 @@ form {
 .post-form input[type=text] {
     width: 700px;
 }
-
+.post-father {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 .post {
+    width: calc(100% / 3 - 30px);
+    margin: 15px;
     background-color: rgb(212, 212, 212);
     padding: 20px;
     margin-bottom: 20px;
+}
+.post-image img{
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    object-fit: contain;
 }
 .form-block {
     margin: 0;
     width: 200px;
     float: right;
     margin-top: 7px;
+}
+.item img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
 }

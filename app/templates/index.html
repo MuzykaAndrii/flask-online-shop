@@ -23,11 +23,18 @@
 
 {% block content %}
 <h2 class="important">Most popular products: </h2>
+<div class="post-father">
 {% for product in products %}
 <div class="post">
+  <div class="post-image ">
+    <img src="/static/products_pics/{{product.pictures[0]}}" alt="">
+  </div>
+  <div class="post-inf">
   <h4><a href="{{ url_for('products.product', product_id=product.id) }}">{{product.title}}</a> {{product.price}}$ </h4>
   <p>{{ product.description | truncate(100)}}</p>
   <b>{{ product.views}} people saw this.</b>
 </div>
+</div>
 {% endfor %}
+</div>
 {% endblock %}

@@ -68,7 +68,7 @@ def get_products():
         products = Product.query.filter(Product.title.contains(search_query) | Product.description.contains(search_query)).paginate(page=page, per_page=app.config['POSTS_PER_PAGE'])
     else:
         #paginate simply
-        products = Product.query.order_by(Product.date_posted).paginate(page=page, per_page=app.config['POSTS_PER_PAGE'])
+        products = Product.query.order_by(Product.date_posted.desc()).paginate(page=page, per_page=app.config['POSTS_PER_PAGE'])
 
     return render_template('products/products.html', title='Products', products=products)
 

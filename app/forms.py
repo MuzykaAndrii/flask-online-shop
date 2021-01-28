@@ -82,7 +82,7 @@ class CreatePostForm(FlaskForm):
 
 class CreateProductForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=4, max=50, message='Name of product is too short/big')])
-    description = StringField('Description', validators=[DataRequired(), Length(max=10000, message='Text is too big')])
+    description = TextAreaField('Description', validators=[DataRequired(), Length(max=10000, message='Text is too big')])
     price = DecimalField('Price', validators=[DataRequired(), NumberRange(min=0.01, max=999999, message='Price is could be bigger than zero')])
     quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=0, message='Quantity is could be bigger than zero')])
     pictures = MultipleFileField('Add product picture', validators=[FileAllowed(['jpg', 'png'])])

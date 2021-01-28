@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
 {% for cat, msg in get_flashed_messages(True) %}
 <ul class="list-group">
     <li class="list-group-item list-group-item-{{cat}}">{{msg}}</li>
@@ -15,11 +18,43 @@
 <p>From: {{ product.date_posted }}</p>
 <p>{{ product.views }} views</p>
 
+<div class="owl-carousel owl-theme">
+{% for pic in product.pictures %}
+    <div class="item">
+        <div class="item-element">
+            <img src="/static/products_pics/{{pic}}" alt="">
+        </div>
+    </div>
+{% endfor %}
+</div>
+
 {% if product.seller_id == current_user.id %}
 
 <a href="{{ url_for('products.update_product', product_id=product.id) }}" class="btn btn-primary">Update product</a>
 <a href="{{ url_for('products.delete_product', product_id=product.id) }}" class="btn btn-danger">Delete product</a>
 
+
 {% endif %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+    $('.owl-carousel').owlCarousel({
+    loop:false,
+    margin:10,
+    nav:false,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:5
+        }
+    }
+})
+</script>
 
 {% endblock %}
