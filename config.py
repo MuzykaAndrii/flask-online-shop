@@ -15,13 +15,13 @@ USERS_PICS_DIR = '/static/profile_pics'
 ##### EMAIL CONF
 DEBUG = True
 TESTING = False
-MAIL_SERVER = 'localhost'
-MAIL_PORT = 8080
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_PORT = 9876
 MAIL_USE_TLS = True
 MAIL_USE_SSL = False
-MAIL_USERNAME = 'andrymyzik@i.ua'
+MAIL_USERNAME = 'some username'
 MAIL_PASSWORD = 'some pass'
-MAIL_DEFAULT_SENDER = 'andrymyzik@i.ua'
+MAIL_DEFAULT_SENDER = 'some default sender'
 MAIL_MAX_EMAILS = None
 #MAIL_SUPPRESS_SEND = False
 MAIL_ASCII_ATTACHMENTS = False
