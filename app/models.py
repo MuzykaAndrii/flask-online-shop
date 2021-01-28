@@ -18,7 +18,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(70), nullable=False)
     about_me = db.Column(db.Text, default='Hi everyone!')
     last_seen = db.Column(db.DateTime, default=dt.utcnow)
-    products = db.relationship('Product', backref='seller', lazy=True)
+    products = db.relationship('Product', backref='seller', lazy="dynamic")
     admin = db.Column(db.Boolean, default=0, nullable=False)
 
     def is_admin(self):
@@ -68,5 +68,5 @@ class Product(db.Model):
         db.session.commit()
     
     def __repr__(self):
-        return f"Product('{self.title}', '{self.content}', '{self.seller_id}', '{self.date_posted}')"
+        return f"Product('{self.title}', '{self.description}', '{self.seller_id}', '{self.date_posted}')"
 

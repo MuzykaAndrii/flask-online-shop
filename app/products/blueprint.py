@@ -46,8 +46,8 @@ def get_seller_products(seller_name):
     POSTS_PER_PAGE = 5
     page = request.args.get('page', 1, type=int)
     
-    creator_id = User.query.filter_by(username=seller_name).first_or_404().id
-    products = Product.query.filter_by(seller_id=creator_id).paginate(page=page, per_page=POSTS_PER_PAGE)
+    creator = User.query.filter_by(username=seller_name).first_or_404()
+    products = creator.products.paginate(page=page, per_page=POSTS_PER_PAGE)
 
     desc = 'All products from {}'.format(seller_name)
     return render_template('products/products.html', title='Products', products=products, desc=desc)
