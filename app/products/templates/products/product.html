@@ -30,6 +30,8 @@
 </div>
 {% endif %}
 
+<a href="{{ url_for('products.order_product', product_id=product.id) }}" class="btn btn-success">Order product</a>
+
 {% if product.seller_id == current_user.id %}
 
 <a href="{{ url_for('products.update_product', product_id=product.id) }}" class="btn btn-primary">Update product</a>

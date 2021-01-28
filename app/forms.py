@@ -87,3 +87,10 @@ class CreateProductForm(FlaskForm):
     quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=0, message='Quantity is could be bigger than zero')])
     pictures = MultipleFileField('Add product picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Submit')
+
+class OrderProductForm(FlaskForm):
+    full_name = StringField('Your full name', validators=[DataRequired()])
+    address = StringField('Destination arddress', validators=[DataRequired()])
+    phone_number = StringField('Enter your phone number to connect with you', validators=[DataRequired()])
+    email = StringField('Your email address', validators=[Email()])
+    submit = SubmitField('Submit')
