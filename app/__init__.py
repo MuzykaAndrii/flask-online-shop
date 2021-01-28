@@ -7,6 +7,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_ckeditor import CKEditor, CKEditorField
 from flask_marshmallow import Marshmallow
 from wtforms import PasswordField
+from flask_mail import Mail
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -14,6 +15,7 @@ app.jinja_env.filters['markup'] = Markup
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 bcrypt = Bcrypt(app)
+mail = Mail(app)
 
 login = LoginManager(app)
 login.login_view = 'login'
