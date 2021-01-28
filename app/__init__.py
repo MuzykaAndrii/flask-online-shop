@@ -20,19 +20,11 @@ login.login_view = 'login'
 login.sesion_protection = 'strong'
 login.login_message_category = 'info'
 
-ckeditor = CKEditor(app)
-
-from app.posts.blueprint import posts
-app.register_blueprint(posts, url_prefix='/blog')
-
 from app.products.blueprint import products
 app.register_blueprint(products, url_prefix='/shop')
 
 from app.auth.blueprint import auth
 app.register_blueprint(auth, url_prefix='/auth')
-
-from app.api.blueprint import api_bp
-app.register_blueprint(api_bp, url_prefix='/api')
 
 from app import views
 from app.models import *
@@ -66,17 +58,7 @@ class UserModelView(ModelView):
     def is_accessible(self):
         return current_user.is_admin()
 
-class PostModelView(ModelView):
-    form_columns = ['title', 'content', 'author']
-    form_overrides = dict(content=CKEditorField)
-    create_template = 'admin/model/create.html'
-    edit_template = 'admin/model/edit.html'
-
-    def is_accessible(self):
-        return current_user.is_admin()
-
 
 admin = Admin(app, index_view=MyAdminIndexView())
-admin.add_view(PostModelView(Post, db.session))
 admin.add_view(UserModelView(User, db.session))
 

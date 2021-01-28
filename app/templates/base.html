@@ -35,7 +35,7 @@
         </li>
       </ul>
 
-      <form class="form-block" method="GET" action="{{ url_for('posts.get_posts') }}">
+      <form class="form-block" method="GET" action="{{ url_for('products.get_products') }}">
         <input class="form-control" name='search_query' value="{{ request.args.get('search_query', '') }}" type="text" placeholder="Search" aria-label="Search">
         <input type="submit" style="display: none" value="go">
       </form>
