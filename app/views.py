@@ -6,39 +6,14 @@ from app import bcrypt
 from flask_login import current_user, login_required
 from . import db
 from datetime import datetime as dt
-import os
-import secrets
-from PIL import Image
 from functools import wraps
+from app.utils import *
 
 @app.before_request
 def update_last_seen():
     if current_user.is_authenticated:
         current_user.last_seen = dt.now()
         db.session.commit()
-
-def save_picture(form_picture):
-    #generate random name for pic
-    random_hex = secrets.token_hex(8)
-
-    #divide filename to name and extentions
-    f_name, f_ext, = os.path.splitext(form_picture.filename)
-
-    #connect new pic name to her extention
-    picture_fn = random_hex + f_ext
-
-    #generate new pic path according to new name and os folders position
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
-    
-    #define default pic size
-    output_size = (200, 200)
-
-    #open, crop and save pic
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-
-    return picture_fn
 
 @app.route('/')
 @app.route('/index')
@@ -69,7 +44,7 @@ def account():
 
         #if added new account image
         if form.picture.data:
-            picture_file = save_picture(form.picture.data)
+            picture_file = save_picture(form.picture.data, 'static/profile_pics', app.root_path)
             current_user.image_file = picture_file
 
         #update user data

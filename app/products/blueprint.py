@@ -30,8 +30,9 @@ def new_product():
         creator_id = current_user.id
         price = form.price.data
         quantity = form.quantity.data
+        
 
-        product = Product(title, description, creator_id, price, quantity)
+        product = Product(title, description, creator_id, price, quantity, pictures)
         product.save()
 
         flash('Product created successfully', 'success')
