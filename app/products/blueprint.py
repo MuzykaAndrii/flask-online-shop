@@ -34,7 +34,7 @@ def new_product():
         quantity = form.quantity.data
         pictures = list()
         for f in form.pictures.data:
-            pictures.append(save_picture(f, app.root_path + '/static/products_pics'))
+            pictures.append(save_picture(f, app.root_path + app.config['PRODUCTS_PICS_DIR']))
         
         product = Product(title, description, creator_id, price, quantity, pictures)
         product.save()
@@ -48,11 +48,10 @@ def new_product():
 @products.route('/products/<string:seller_name>', methods=['GET'])
 def get_seller_products(seller_name):
     # Set the pagination configuration
-    POSTS_PER_PAGE = 5
     page = request.args.get('page', 1, type=int)
     
     creator = User.query.filter_by(username=seller_name).first_or_404()
-    products = creator.products.paginate(page=page, per_page=POSTS_PER_PAGE)
+    products = creator.products.paginate(page=page, per_page=app.config['POSTS_PER_PAGE'])
 
     desc = 'All products from {}'.format(seller_name)
     return render_template('products/products.html', title='Products', products=products, desc=desc)
@@ -61,16 +60,15 @@ def get_seller_products(seller_name):
 @products.route('/products', methods=['GET'])
 def get_products():
     # Set the pagination configuration
-    POSTS_PER_PAGE = 5
     page = request.args.get('page', 1, type=int)
     search_query = request.args.get('search_query')
 
     if search_query:
         # paginate according to search query
-        products = Product.query.filter(Product.title.contains(search_query) | Product.description.contains(search_query)).paginate(page=page, per_page=POSTS_PER_PAGE)
+        products = Product.query.filter(Product.title.contains(search_query) | Product.description.contains(search_query)).paginate(page=page, per_page=app.config['POSTS_PER_PAGE'])
     else:
         #paginate simply
-        products = Product.query.order_by(Product.date_posted).paginate(page=page, per_page=POSTS_PER_PAGE)
+        products = Product.query.order_by(Product.date_posted).paginate(page=page, per_page=app.config['POSTS_PER_PAGE'])
 
     return render_template('products/products.html', title='Products', products=products)
 

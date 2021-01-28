@@ -44,7 +44,7 @@ def account():
 
         #if added new account image
         if form.picture.data:
-            picture_file = save_picture(form.picture.data, app.root_path + '/static/profile_pics')
+            picture_file = save_picture(form.picture.data, app.root_path + app.config['USERS_PICS_DIR'])
             current_user.image_file = picture_file
 
         #update user data
