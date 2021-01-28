@@ -43,7 +43,7 @@ def save_picture(form_picture):
 @app.route('/')
 @app.route('/index')
 def index():
-    products = db.session.query(Product).order_by(Product.views.desc()).limit(3)
+    products = db.session.query(Product).order_by(Product.views.desc()).limit(4)
     return render_template('index.html', products=products)
 
 
