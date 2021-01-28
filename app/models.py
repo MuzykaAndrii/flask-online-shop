@@ -51,6 +51,7 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=False)
     quantity = db.Column(db.Integer, default=0)
     views = db.Column(db.Integer, default=0)
+    photos = db.Column(db.PickleType, nullable=True)
 
     def __init__(self, title, description, user_id, price, quantity):
         self.title = title
