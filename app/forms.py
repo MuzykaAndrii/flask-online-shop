@@ -93,4 +93,4 @@ class OrderProductForm(FlaskForm):
     address = StringField('Destination arddress', validators=[DataRequired()])
     phone_number = StringField('Enter your phone number to connect with you', validators=[DataRequired()])
     email = StringField('Your email address', validators=[Email()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Buy product')

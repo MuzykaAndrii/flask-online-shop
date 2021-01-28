@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, url_for, flash, abort, redirect
-from app.forms import CreateProductForm
+from app.forms import CreateProductForm, OrderProductForm
 from app.models import Product, User
 from flask_login import login_required, current_user
 from datetime import datetime as dt
@@ -115,13 +115,11 @@ def delete_product(product_id):
 ####### ORDER
 @products.route('/product/<int:product_id>/order')
 def order_product(product_id):
+    form = OrderProductForm()
+    product = Product.query.get_or_404(product_id)
     
-    return redirect(url_for('products.get_products'))
+    if form.validate_on_submit():
+        # send buyer information to seller
+        # return success or fail report
 
-
-####### BUY
-
-@products.route('/product/<int:product_id>/buy')
-def buy_product(product_id):
-    
-    return redirect(url_for('products.get_products'))
+    return render_template('products/order_product.html', form=form, product=product)
