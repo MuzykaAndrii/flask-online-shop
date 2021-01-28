@@ -33,11 +33,16 @@ class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
         return current_user.is_admin()
 
+class ProductsModelView(ModelView):
+    form_excluded_columns = ('date_posted', 'views')
+
+    def is_accessible(self):
+        return current_user.is_admin()
 
 class UserModelView(ModelView):
 
     #exclude pass field and other
-    form_excluded_columns = ('password', 'posts', 'image_file', 'last_seen')
+    form_excluded_columns = ('password', 'image_file', 'last_seen')
 
     #add additionally pass field
     form_extra_fields = {
@@ -45,8 +50,8 @@ class UserModelView(ModelView):
     }
 
     #IMPORTANT! 2 rules under just rearrange fields in forms, not exclude him
-    form_create_rules = ['username', 'email', 'password2', 'about_me', 'admin']
-    form_edit_rules  = ['username', 'email', 'password2', 'about_me', 'admin']
+    form_create_rules = ['username', 'email', 'password2', 'about_me', 'admin', 'products']
+    form_edit_rules  = ['username', 'email', 'password2', 'about_me', 'admin', 'products']
 
 
     def on_model_change(self, form, model, is_created):
@@ -61,4 +66,5 @@ class UserModelView(ModelView):
 
 admin = Admin(app, index_view=MyAdminIndexView())
 admin.add_view(UserModelView(User, db.session))
+admin.add_view(ProductsModelView(Product, db.session))
 
