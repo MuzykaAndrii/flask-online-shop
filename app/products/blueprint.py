@@ -5,6 +5,8 @@ from flask_login import login_required, current_user
 from datetime import datetime as dt
 from app.utils import *
 from app import app
+from app import mail
+from flask_mail import Message
 
 products = Blueprint('products', __name__, template_folder='templates')
 
@@ -113,14 +115,21 @@ def delete_product(product_id):
     return redirect(url_for('products.get_products'))
 
 ####### ORDER
-@products.route('/product/<int:product_id>/order')
+@products.route('/product/<int:product_id>/order', methods=['GET', 'POST'])
 def order_product(product_id):
     form = OrderProductForm()
     product = Product.query.get_or_404(product_id)
     
     if form.validate_on_submit():
+        #get product owner
+        seller = User.query.get(product.seller_id)
         # send buyer information to seller
-        
+        msg = Message("New order request", recipients=[seller.email])
+        msg.body = 'Name of customer: {}\nPhone number: {}\nAddress: {}\nEmail: {}\nProduct: http://127.0.0.1:5000/shop/product/{}'.format(form.full_name.data, form.phone_number.data, form.address.data, form.email.data, product_id)
+        mail.send(msg)
+        print('################################## {}'.format(seller.email))
         # return success or fail report
-
+        flash('Your order successfully accepted, please wait until the seller contacts you to clarify the delivery and payment information', 'success')
+        return redirect(url_for('products.product', product_id=product_id))
+    
     return render_template('products/order_product.html', form=form, product=product)
