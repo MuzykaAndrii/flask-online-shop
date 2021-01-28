@@ -120,6 +120,7 @@ def order_product(product_id):
     
     if form.validate_on_submit():
         # send buyer information to seller
+        
         # return success or fail report
 
     return render_template('products/order_product.html', form=form, product=product)
