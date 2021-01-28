@@ -23,7 +23,14 @@
 
 {% block content %}
 <h2 class="important">Most popular products: </h2>
-{# TODO: list of most popular products #}
+{% for product in products %}
+<div class="post">
+  <h2><a href="{{ url_for('products.product', product_id=product.id) }}">{{product.title}}</a> {{product.price}}$ </h2>
+  <p>{{ product.description | truncate(100)}}</p>
+  <b>{{ product.views}} people saw this.</b>
+</div>
+{% endfor %}
+
 <h2 class="important">Most popular sellers: </h2>
 {# TODO: list of most popular sellers #}
 

@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect, request, flash, abort
 from app import app
 from app.forms import UpdateAccountForm, UpdatePasswordForm, CreatePostForm
-from app.models import User
+from app.models import User, Product
 from app import bcrypt
 from flask_login import current_user, login_required
 from . import db
@@ -43,7 +43,8 @@ def save_picture(form_picture):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    products = db.session.query(Product).order_by(Product.views.desc()).limit(3)
+    return render_template('index.html', products=products)
 
 
 ###################### ACCOUNT SETTINGS ##########################
