@@ -111,3 +111,17 @@ def delete_product(product_id):
     product.delete()
     flash('Your product hes been deleted!', 'success')
     return redirect(url_for('products.get_products'))
+
+####### ORDER
+@products.route('/product/<int:product_id>/order')
+def order_product(product_id):
+    
+    return redirect(url_for('products.get_products'))
+
+
+####### BUY
+
+@products.route('/product/<int:product_id>/buy')
+def buy_product(product_id):
+    
+    return redirect(url_for('products.get_products'))

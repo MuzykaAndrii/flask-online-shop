@@ -18,6 +18,7 @@
 <p>From: {{ product.date_posted }}</p>
 <p>{{ product.views }} views</p>
 
+{% if product.pictures %}
 <div class="owl-carousel owl-theme">
 {% for pic in product.pictures %}
     <div class="item">
@@ -27,6 +28,7 @@
     </div>
 {% endfor %}
 </div>
+{% endif %}
 
 {% if product.seller_id == current_user.id %}
 
