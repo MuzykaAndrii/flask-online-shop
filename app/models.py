@@ -53,12 +53,13 @@ class Product(db.Model):
     views = db.Column(db.Integer, default=0)
     pictures = db.Column(db.PickleType, nullable=True)
 
-    def __init__(self, title, description, user_id, price, quantity):
+    def __init__(self, title, description, user_id, price, quantity, pictures):
         self.title = title
         self.description = description
         self.seller_id = user_id
         self.price = price
         self.quantity = quantity
+        self.pictures = pictures
     
     def save(self):
         db.session.add(self)

@@ -3,6 +3,8 @@ from app.forms import CreateProductForm
 from app.models import Product, User
 from flask_login import login_required, current_user
 from datetime import datetime as dt
+from app.utils import *
+from app import app
 
 products = Blueprint('products', __name__, template_folder='templates')
 
@@ -30,8 +32,10 @@ def new_product():
         creator_id = current_user.id
         price = form.price.data
         quantity = form.quantity.data
+        pictures = list()
+        for f in form.pictures.data:
+            pictures.append(save_picture(f, app.root_path + '/static/products_pics'))
         
-
         product = Product(title, description, creator_id, price, quantity, pictures)
         product.save()
 

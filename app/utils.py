@@ -2,7 +2,7 @@ import os
 import secrets
 from PIL import Image
 
-def save_picture(form_picture, root_path, additional_path):
+def save_picture(form_picture, path):
     #generate random name for pic
     random_hex = secrets.token_hex(8)
 
@@ -13,7 +13,7 @@ def save_picture(form_picture, root_path, additional_path):
     picture_fn = random_hex + f_ext
 
     #generate new pic path according to new name and os folders position
-    picture_path = os.path.join(root_path, additional_path, picture_fn)
+    picture_path = os.path.join(path, picture_fn)
     
     #define default pic size
     output_size = (200, 200)
